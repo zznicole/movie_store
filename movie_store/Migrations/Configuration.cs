@@ -7,6 +7,8 @@
     using System.Linq;
     using movie_store.Models;
     using System.Web.Services.Description;
+    using movie_store.Data_modify_method;
+    using movie_store.Models.DB;
 
   internal sealed class Configuration : DbMigrationsConfiguration<movie_store.Models.ApplicationDbContext>
   {
@@ -18,12 +20,10 @@
     protected override void Seed(movie_store.Models.ApplicationDbContext context)
     {
 
-      /*Context.Movies.AddOrUpdate(GetResponseText("The Social Dilemma", 119));*/
+      
 
-
-      //  You can use the DbSet<T>.AddOrUpdate() helper extension method
-      //  to avoid creating duplicate seed data.
     }
-   
+
+    
   }
 }

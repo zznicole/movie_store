@@ -22,6 +22,11 @@ namespace movie_store.Models.DB
     [Required]
     [DataType(DataType.Currency)]
     public decimal Price { get; set; }
+    public double ImdbRating { get; set; }
+    public string ImdbId { get; set; }
+    public string ImdbRated { get; set; }
+    public string Plot { get; set; }
+    public string ImgUrl { get; set; }
 
     public virtual ICollection<OrderRow> OrderRows { get; set; }
   }

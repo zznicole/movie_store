@@ -23,6 +23,6 @@ namespace movie_store.Migrations
     [JsonProperty("Plot")]
     public string Plot { get; set; }
     [JsonProperty("Poster")]
-    public string imgUrl { get; set; }
+    public string ImgUrl { get; set; }
   }
 }
