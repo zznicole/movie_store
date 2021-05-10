@@ -177,6 +177,11 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\DB\Customer.cs" />
+    <Compile Include="Models\DB\ICustomer.cs" />
+    <Compile Include="Models\DB\Movie.cs" />
+    <Compile Include="Models\DB\Order.cs" />
+    <Compile Include="Models\DB\OrderRow.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -344,7 +349,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\DB\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

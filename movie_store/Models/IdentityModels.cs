@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using movie_store.Models.DB;
 
 namespace movie_store.Models
 {
@@ -24,7 +25,11 @@ namespace movie_store.Models
             : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
-
+        
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<Movie> Movies { get; set; }
+        public DbSet<OrderRow> OrderRows { get; set; }
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
