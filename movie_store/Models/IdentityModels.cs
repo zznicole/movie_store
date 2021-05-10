@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -34,5 +35,10 @@ namespace movie_store.Models
         {
             return new ApplicationDbContext();
         }
+
+    internal void AddOrUpdate(object v)
+    {
+      throw new NotImplementedException();
     }
+  }
 }
