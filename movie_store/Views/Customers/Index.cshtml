@@ -1,0 +1,99 @@
+﻿@model IEnumerable<movie_store.Models.DB.Customer>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PhoneNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BillingAddress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BillingZipCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BillingCity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BillingCountry)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DeliveryAddress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DeliveryZipCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DeliveryCity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DeliverCountry)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PhoneNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BillingAddress)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BillingZipCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BillingCity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BillingCountry)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DeliveryAddress)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DeliveryZipCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DeliveryCity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DeliverCountry)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

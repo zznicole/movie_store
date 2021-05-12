@@ -13,7 +13,8 @@ namespace movie_store.Data_modify_method
 {
   public class Repo
   {
-    //To get 
+    private ApplicationDbContext _db = new ApplicationDbContext();
+    //Get json object from  api
     public static String ApiGetJson(string url)
     {
       HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(url); // Create a request to get server info
@@ -25,7 +26,7 @@ namespace movie_store.Data_modify_method
         {
           StreamReader reader = new StreamReader(responseStream, System.Text.Encoding.UTF8);
           return reader.ReadToEnd();
-          }
+        }
 
       }
       catch (WebException ex)
@@ -39,7 +40,7 @@ namespace movie_store.Data_modify_method
         throw;
       }
     }
-
+    //Deserialize json and pass into Movie
     public static void GetMovieData(Movie movy)
     {
       ApiData obj = JsonConvert.DeserializeObject<ApiData>(ApiGetJson($"http://www.omdbapi.com/?t={movy.Title}&apikey=171b1b73"));
@@ -53,12 +54,23 @@ namespace movie_store.Data_modify_method
       movy.ImdbRating = obj.ImdbRating;
     }
 
-    public static Movie GetMovieDataByTitle(string title, decimal price)
+    //Display all movies
+    public static List<Movie> GetMovies()
     {
-      Movie obj = new Movie();
-      obj.Title = title;
-      obj.Price = price;
-      return obj;
+      using(var _db = new ApplicationDbContext())
+      {
+        var allDbMovies = _db.Movies.OrderByDescending(m => m.ReleaseYear);
+        return allDbMovies.ToList();
+      }
     }
+    //Display Most Popular movies
+
+   //public static void DisplayPolular(List<Movie> movies)
+   // {
+   //   var mostPolular = from count(OrderId) in OrderRows
+   //                     where MovieId 
+   // } 
+
+
   }
 }

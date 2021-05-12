@@ -22,11 +22,12 @@ namespace movie_store.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        //Constructor
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
-        
+        //Database tables
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Movie> Movies { get; set; }
