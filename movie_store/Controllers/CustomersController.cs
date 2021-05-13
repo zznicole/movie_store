@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using movie_store.Models;
 using movie_store.Models.DB;
+using static movie_store.Data_modify_method.Repo;
 
 namespace movie_store.Controllers
 {
@@ -18,7 +19,7 @@ namespace movie_store.Controllers
         // GET: Customers
         public ActionResult Index()
         {
-            return View(db.Customers.ToList());
+            return View(GetCustomers());
         }
 
         // GET: Customers/Details/5
@@ -39,7 +40,8 @@ namespace movie_store.Controllers
         // GET: Customers/Create
         public ActionResult Create()
         {
-            return View();
+            Customer customer = new Customer();
+            return View(customer);
         }
 
         // POST: Customers/Create
