@@ -63,6 +63,33 @@ namespace movie_store.Data_modify_method
         return allDbMovies.ToList();
       }
     }
+
+    public static void SaveMovie(Movie movie)
+    {
+      using(var _db = new ApplicationDbContext())
+      {
+        _db.Movies.Add(movie);
+        _db.SaveChanges();
+      }
+    }
+
+    public static List<Customer> GetCustomers()
+    {
+      using(var _db = new ApplicationDbContext())
+      {
+        var allDbComputer = _db.Customers.OrderBy(c => c.FirstName);
+        return allDbComputer.ToList();
+      }
+    }
+
+    public static void SaveCustomers(Customer customer)
+    {
+      using (var _db = new ApplicationDbContext())
+      {
+        _db.Customers.Add(customer);
+        _db.SaveChanges();
+      }
+    }
     //Display Most Popular movies
 
    //public static void DisplayPolular(List<Movie> movies)

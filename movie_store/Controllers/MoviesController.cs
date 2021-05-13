@@ -40,7 +40,8 @@ namespace movie_store.Controllers
         // GET: Movies/Create
         public ActionResult Create()
         {
-            return View();
+            Movie movie = new Movie();
+            return View(movie);
         }
 
         // POST: Movies/Create
@@ -48,12 +49,11 @@ namespace movie_store.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Title,Director,ReleaseYear,Price,ImdbRating,ImdbId,ImdbRated,Plot,ImgUrl")] Movie movie)
+        public ActionResult Create([Bind(Include = "Id,Title,Director,ReleaseYear,Price,ImgUrl")] Movie movie)
         {
             if (ModelState.IsValid)
             {
-                db.Movies.Add(movie);
-                db.SaveChanges();
+                SaveMovie(movie);
                 return RedirectToAction("Index");
             }
 
