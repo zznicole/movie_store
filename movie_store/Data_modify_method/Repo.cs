@@ -54,7 +54,7 @@ namespace movie_store.Data_modify_method
       movy.ImdbRating = obj.ImdbRating;
     }
 
-    //Display all movies
+    //Get all movies
     public static List<Movie> GetMovies()
     {
       using(var _db = new ApplicationDbContext())
@@ -63,7 +63,8 @@ namespace movie_store.Data_modify_method
         return allDbMovies.ToList();
       }
     }
-
+    
+    //Save the new movie to db
     public static void SaveMovie(Movie movie)
     {
       using(var _db = new ApplicationDbContext())
@@ -73,15 +74,57 @@ namespace movie_store.Data_modify_method
       }
     }
 
+    //Get top 5 newest movies
+    public static List<Movie> GetFiveNewestMovies()
+    {
+      using (var _db = new ApplicationDbContext())
+      {
+        List<Movie> fiveNewest = _db.Movies.OrderByDescending(m => m.ReleaseYear).Take(5).ToList();
+        return fiveNewest;
+      }
+    }
+
+    //Get top 5 oldest movies
+    public static List<Movie> GetFiveOldestMovies()
+    {
+      using (var _db = new ApplicationDbContext())
+      {
+        List<Movie> fiveNewest = _db.Movies.OrderBy(m => m.ReleaseYear).Take(5).ToList();
+        return fiveNewest;
+      }
+    }
+
+    //Get top 5 cheapest movies
+    public static List<Movie> GetFiveCheapestMovies()
+    {
+      using (var _db = new ApplicationDbContext())
+      {
+        List<Movie> fiveNewest = _db.Movies.OrderBy(m => m.Price).Take(5).ToList();
+        return fiveNewest;
+      }
+    }
+
+    //Get all customers
     public static List<Customer> GetCustomers()
     {
       using(var _db = new ApplicationDbContext())
       {
-        var allDbComputer = _db.Customers.OrderBy(c => c.FirstName);
+        var allDbComputer = _db.Customers.OrderBy(c => c.LastName);
         return allDbComputer.ToList();
       }
     }
 
+    //Unique Email
+    public static bool CheckDuplicateEmail(Customer customer)
+    {
+      using(var _db = new ApplicationDbContext())
+      {
+        bool emailExists = _db.Customers.Any(c => c.Email == customer.Email);
+        return emailExists;
+      }
+    }
+
+    //Save the new customers
     public static void SaveCustomers(Customer customer)
     {
       using (var _db = new ApplicationDbContext())
@@ -90,14 +133,16 @@ namespace movie_store.Data_modify_method
         _db.SaveChanges();
       }
     }
-    //Display Most Popular movies
 
-   //public static void DisplayPolular(List<Movie> movies)
-   // {
-   //   var mostPolular = from count(OrderId) in OrderRows
-   //                     where MovieId 
-   // } 
-
+    //Click 
+    //public static void SaveOrder(OrderRow newOrder)
+    //{
+    //  using (var _db = new ApplicationDbContext())
+    //  {
+    //    _db.OrderRows.Add(newOrder.);
+    //    _db.SaveChanges();
+    //  }
+    //}
 
   }
 }

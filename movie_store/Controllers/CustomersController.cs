@@ -51,6 +51,10 @@ namespace movie_store.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,FirstName,LastName,Email,PhoneNo,BillingAddress,BillingZipCode,BillingCity,BillingCountry,DeliveryAddress,DeliveryZipCode,DeliveryCity,DeliverCountry")] Customer customer)
         {
+            if (CheckDuplicateEmail(customer) == true)
+            {
+              ModelState.AddModelError("Email", "Email already exists.");
+            }
             if (ModelState.IsValid)
             {
                 db.Customers.Add(customer);
