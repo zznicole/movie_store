@@ -6,8 +6,12 @@
 
 <h2 class="text-md-center text-light">All Customers</h2>
 
-<a class="btn btn-outline-light  ml-md-2 mb-3" href="/Customers/Create">Add a Customere</a>
 
+@if (User.IsInRole("Admin"))
+{
+    @Html.ActionLink("Add a Customer", "Create", null, new { @class = "btn btn-outline-danger  ml-md-2 mb-3" });
+
+}
 <table class="table text-light">
     <tr>
         <th>
@@ -89,10 +93,13 @@
                 @Html.DisplayFor(modelItem => item.DeliverCountry)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-            </td>
+                @if (User.IsInRole("Admin"))
+                {
+                    @Html.ActionLink("Edit", "Edit", null, new { id = item.Id, @class = "btn btn-outline-danger" }) ;
+                    @Html.ActionLink("Details", "Details", null, new { id = item.Id, @class = "btn btn-outline-danger mx-2" }) ;
+                    @Html.ActionLink("Delete", "Delete", null, new { id = item.Id, @class = "btn btn-outline-danger" })
+                }
+
         </tr>
     }
 
