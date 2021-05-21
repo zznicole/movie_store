@@ -20,7 +20,7 @@
   --gray-dark: #343a40;
   --primary: #007bff;
   --secondary: #6c757d;
-  --success: #28a745;
+  --success: linear-gradient(to right, #e96443, #904e95);
   --info: #17a2b8;
   --warning: #ffc107;
   --danger: #dc3545;
@@ -160,7 +160,7 @@ a {
 
 a:hover {
   color: #0056b3;
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 a:not([href]):not([class]) {
@@ -2626,9 +2626,11 @@ fieldset:disabled a.btn {
 }
 
 .btn-success {
-  color: #fff;
-  background-color: #28a745;
-  border-color: #28a745;
+    color: #fff;
+    background-color: #28a745;
+    background-color: linear-gradient(to right, #e96443, #904e95);
+    border-color: #28a745;
+    border-color: linear-gradient(to right, #e96443, #904e95);
 }
 
 .btn-success:hover {

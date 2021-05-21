@@ -6,6 +6,8 @@
 
 <h2 class="text-md-center text-light">All Customers</h2>
 
+<a class="btn btn-outline-light  ml-md-2 mb-3" href="/Customers/Create">Add a Customere</a>
+
 <table class="table text-light">
     <tr>
         <th>
@@ -47,50 +49,51 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.FirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LastName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PhoneNo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BillingAddress)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BillingZipCode)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BillingCity)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BillingCountry)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DeliveryAddress)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DeliveryZipCode)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DeliveryCity)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DeliverCountry)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhoneNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BillingAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BillingZipCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BillingCity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BillingCountry)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DeliveryAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DeliveryZipCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DeliveryCity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DeliverCountry)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
 
 </table>

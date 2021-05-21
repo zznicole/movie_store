@@ -53,7 +53,7 @@ namespace movie_store.Controllers
         {
             if (CheckDuplicateEmail(customer) == true)
             {
-              ModelState.AddModelError("Email", "Email already exists.");
+            ModelState.AddModelError("Email", "Email already exists.");
             }
             if (ModelState.IsValid)
             {
@@ -66,13 +66,13 @@ namespace movie_store.Controllers
         }
 
         // GET: Customers/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int custId)
         {
-            if (id == null)
+            if (custId == 0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Customer customer = db.Customers.Find(id);
+            Customer customer = db.Customers.Find(custId);
             if (customer == null)
             {
                 return HttpNotFound();

@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using movie_store.Models;
+using  static movie_store.Data_modify_method.Repo;
 
 namespace movie_store.Controllers
 {
@@ -50,6 +51,11 @@ namespace movie_store.Controllers
             }
         }
 
+        public ActionResult AddNewRole()
+        { 
+            AddRole();
+            return RedirectToAction("Index");
+        }
         //
         // GET: /Manage/Index
         public async Task<ActionResult> Index(ManageMessageId? message)

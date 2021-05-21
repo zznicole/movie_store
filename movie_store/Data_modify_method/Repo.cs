@@ -8,6 +8,9 @@ using movie_store.Models;
 using movie_store.Models.DB;
 using movie_store.Migrations;
 using Newtonsoft.Json;
+using System.Web.Providers.Entities;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace movie_store.Data_modify_method
 {
@@ -54,6 +57,7 @@ namespace movie_store.Data_modify_method
       movy.ImdbRating = obj.ImdbRating;
     }
 
+    //METHODS FOR MOVIES-------------------------------------------------------------------------
     //Get all movies
     public static List<Movie> GetMovies()
     {
@@ -73,6 +77,24 @@ namespace movie_store.Data_modify_method
         _db.SaveChanges();
       }
     }
+
+    //View most popular movies in order
+    //public static List<Movie> GetMoviesOrderbyPopularity()
+    //{
+    //  using(var _db = new ApplicationDbContext())
+    //  {
+    //    var query  = (from c in _db.Customers
+    //                  join o in _db.Orders on c.Id equals o.CustomerId
+    //                  join orw in _db.OrderRows on o.Id equals orw.OrderId
+    //                  join m in _db.Movies on orw.MovieId equals m.Id;
+    //                  where m.Title =" "                             
+    //                  select c).ToList();
+    //    var mostPopularMovies = from m in _db.Movies
+    //                            join orw in _db.OrderRows on m.Id equals orw.MovieId
+    //                            join o in _db.Order on orw.OrderId equals o.Id
+    //
+    //  }
+    //}
 
     //Get top 5 newest movies
     public static List<Movie> GetFiveNewestMovies()
@@ -99,19 +121,56 @@ namespace movie_store.Data_modify_method
     {
       using (var _db = new ApplicationDbContext())
       {
-        List<Movie> fiveNewest = _db.Movies.OrderBy(m => m.Price).Take(5).ToList();
-        return fiveNewest;
+        List<Movie> fiveCheapest = _db.Movies.OrderBy(m => m.Price).Take(5).ToList();
+        return fiveCheapest;
       }
     }
 
+    //Add moive to the cart
+    public static void AddToCart(int id)
+    {
+        using (var _db = new ApplicationDbContext())
+        {
+
+            List<Movie> cartItems = new List<Movie>();
+            var cartItem = _db.Movies.FirstOrDefault(m => m.Id == id);
+            cartItems.Add(cartItem);
+          
+
+            //var cartItem = db.Movies.FirstOrDefault(m => m.Id == id);
+            //if (Session.IsNewSession && cartItems != null || Session["cart"] == null && cartItems != null)
+            //{
+            //    cartItems.Add(cartItem);
+            //    Session["cart"] = cartItems;
+            //}
+            //else
+            //{
+            //    cartItems = (List<Movie>)Session["cart"];
+            //    cartItems.Add(cartItem);
+            //    Session["cart"] = cartItems;
+            //}
+        }
+    }
+
+    //METHODS FOR CUSTOMERS-------------------------------------------------------------------------
     //Get all customers
     public static List<Customer> GetCustomers()
-    {
+        {
       using(var _db = new ApplicationDbContext())
       {
         var allDbComputer = _db.Customers.OrderBy(c => c.LastName);
         return allDbComputer.ToList();
       }
+    }
+
+    //Save the new customers
+    public static void SaveCustomers(Customer customer)
+    {
+        using (var _db = new ApplicationDbContext())
+        {
+            _db.Customers.Add(customer);
+            _db.SaveChanges();
+        }
     }
 
     //Unique Email
@@ -124,15 +183,16 @@ namespace movie_store.Data_modify_method
       }
     }
 
-    //Save the new customers
-    public static void SaveCustomers(Customer customer)
+    //Find a customer
+    public static Customer FindCustomer(int custId)
     {
-      using (var _db = new ApplicationDbContext())
+      using(var _db = new ApplicationDbContext())
       {
-        _db.Customers.Add(customer);
-        _db.SaveChanges();
+        return _db.Customers.Find(custId);
       }
     }
+
+
 
     //Click 
     //public static void SaveOrder(OrderRow newOrder)
@@ -144,5 +204,12 @@ namespace movie_store.Data_modify_method
     //  }
     //}
 
-  }
+    //METHODS FOR Admin-------------------------------------------------------------------------
+    //Add role
+    public static void AddRole()
+    {
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new ApplicationDbContext()));
+            roleManager.Create(new IdentityRole("Admin"));
+    }
+    }
 }

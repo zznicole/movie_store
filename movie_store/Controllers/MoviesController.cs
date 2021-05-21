@@ -14,7 +14,8 @@ namespace movie_store.Controllers
 {
     public class MoviesController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private ApplicationDbContext _db = new ApplicationDbContext();
+        List<Movie> cartItems = new List<Movie>();
 
         // GET: All Movies
         public ActionResult Index()
@@ -29,7 +30,7 @@ namespace movie_store.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Movie movie = db.Movies.Find(id);
+            Movie movie = _db.Movies.Find(id);
             if (movie == null)
             {
                 return HttpNotFound();
@@ -58,6 +59,26 @@ namespace movie_store.Controllers
             }
 
             return View(movie);
+        }
+
+        public ActionResult AddToCart(int id)
+        {
+            
+            var cartItem = _db.Movies.FirstOrDefault(m => m.Id == id);
+
+            if (Session.IsNewSession && cartItems != null || Session["cart"] == null && cartItems != null)
+            {
+                cartItems.Add(cartItem);
+                Session["cart"] = cartItems;
+            }
+            else
+            {
+                cartItems = (List<Movie>)Session["cart"];
+                cartItems.Add(cartItem);
+                Session["cart"] = cartItems;
+            }
+           
+            return RedirectToAction("Index");
         }
 
         //// GET: Movies/Edit/5
@@ -117,13 +138,16 @@ namespace movie_store.Controllers
         //    return RedirectToAction("Index");
         //}
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+        //protected override void Dispose()
+        //{
+        //    _db.Dispose();
+        //    base.Dispose();
+        //    /*            if (disposing)
+        //                {
+        //                    _db.Dispose();
+        //                }
+        //                base.Dispose(disposing);
+        //    */
+        //}
     }
 }
