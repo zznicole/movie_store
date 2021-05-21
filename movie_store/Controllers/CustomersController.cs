@@ -17,6 +17,7 @@ namespace movie_store.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Customers
+        [Authorize]
         public ActionResult Index()
         {
             return View(GetCustomers());

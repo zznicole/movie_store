@@ -1,11 +1,23 @@
 ﻿@using Microsoft.AspNet.Identity
-@if (Request.IsAuthenticated)
+
+@{ 
+    int count = 0;
+    string shopCartText = "Shopping Cart";
+    if (Session["CartCount"] != null)
+    {
+        count = (int)Session["CartCount"];
+        shopCartText = "Shopping Cart (" + count + ")";
+    }
+}
+
+@if (Request.IsAuthenticated) //the view after logged in
 {
-    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" })) 
     {
     @Html.AntiForgeryToken()
 
     <ul class="nav navbar-nav navbar-right">
+        <li class="nav-item">@Html.ActionLink(shopCartText, "DisplayCart", "Cart",null, new {@class="btn"})</li>
         <li class="nav-item">
             @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
         </li>
@@ -15,9 +27,9 @@
 }
 else
 {
-    <ul class="nav navbar-nav navbar-right">
-        <li class="nav-item">@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class="btn btn-light",
+    <ul class="nav navbar-nav navbar-right mr-auto">
+        <li class="nav-item">@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class="btn btn-outline-light mx-2",
                             @style = "background - image:linear - gradient(to right, #e96443, #904e95);"})</li>
-        <li class="nav-item">@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class="btn btn-dark" })</li>
+        <li class="nav-item">@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class="btn btn-outline-light" })</li>
     </ul>
 }

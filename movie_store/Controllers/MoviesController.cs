@@ -61,25 +61,26 @@ namespace movie_store.Controllers
             return View(movie);
         }
 
-        public ActionResult AddToCart(int id)
-        {
+        //add a movie order to cart , might delete if this action is recreated in cartcontroller
+        //public ActionResult AddToCart(int id)
+        //{
             
-            var cartItem = _db.Movies.FirstOrDefault(m => m.Id == id);
+        //    var cartItem = _db.Movies.FirstOrDefault(m => m.Id == id);
 
-            if (Session.IsNewSession && cartItems != null || Session["cart"] == null && cartItems != null)
-            {
-                cartItems.Add(cartItem);
-                Session["cart"] = cartItems;
-            }
-            else
-            {
-                cartItems = (List<Movie>)Session["cart"];
-                cartItems.Add(cartItem);
-                Session["cart"] = cartItems;
-            }
+        //    if (Session.IsNewSession && cartItems != null || Session["cart"] == null && cartItems != null)
+        //    {
+        //        cartItems.Add(cartItem);
+        //        Session["cart"] = cartItems;
+        //    }
+        //    else
+        //    {
+        //        cartItems = (List<Movie>)Session["cart"];
+        //        cartItems.Add(cartItem);
+        //        Session["cart"] = cartItems;
+        //    }
            
-            return RedirectToAction("Index");
-        }
+        //    return RedirectToAction("Index");
+        //}
 
         //// GET: Movies/Edit/5
         //public ActionResult Edit(int? id)
