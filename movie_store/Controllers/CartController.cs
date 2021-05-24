@@ -13,13 +13,34 @@ namespace movie_store.Controllers
     public class CartController : Controller
     {
         // GET: Cart
-        public ActionResult AddToCart(int? movieId)
+        public ActionResult AddToCart(int? movieId, string title = "")
         {
-            if (movieId != null)
+            List<int> movieIdList;
+            int addOrSubstract =1;
+            if (movieId == null)
             {
-                AddToSession((int)movieId);
+                movieId = GetMovieByTitle(title).Id;
+                ChangeSession((int)movieId, addOrSubstract);
+                return RedirectToAction("DisplayCart");
             }
+
+            ChangeSession((int)movieId, addOrSubstract);
             return RedirectToAction("Index","Movies");
+        }
+
+        public ActionResult RemoveFromCart(int? movieId, string title="")
+        {
+            if(movieId == null)
+            {
+                movieId = GetMovieByTitle(title).Id;
+            }
+            int addOrSubstract = -1;
+            List<int> movieIdList = ChangeSession((int)movieId, addOrSubstract);
+            if(movieIdList.Count == 0)
+            {
+                return RedirectToAction("Index", "Movies");
+            }
+            return RedirectToAction("DisplayCart");
         }
 
         public ActionResult DisplayCart()
@@ -75,16 +96,32 @@ namespace movie_store.Controllers
             return displayedCart;
         }
 
-        private void AddToSession(int movieId)
+        //private void AddToSession(int movieId)
+        //{
+        //    List<int> movieIdList = new List<int>();
+        //    if (Session["MovieList"] != null)
+        //    {
+        //        movieIdList = (List<int>)Session["MovieList"];
+        //    }
+        //    movieIdList.Add(movieId);
+        //    Session["MovieList"] = movieIdList;
+        //    Session["CartCount"] = movieIdList.Count;
+        //}
+
+        private List<int> ChangeSession(int movieId, int addOrSubstract)
         {
             List<int> movieIdList = new List<int>();
             if (Session["MovieList"] != null)
             {
                 movieIdList = (List<int>)Session["MovieList"];
-            }
-            movieIdList.Add(movieId);
+            } if (addOrSubstract == 1)
+            {
+                movieIdList.Add(movieId);
+            } else
+                movieIdList.Remove(movieId);
             Session["MovieList"] = movieIdList;
             Session["CartCount"] = movieIdList.Count;
+            return movieIdList;
         }
     }
 }

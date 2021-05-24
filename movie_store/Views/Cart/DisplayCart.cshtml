@@ -21,9 +21,9 @@
                     @item.Price
                 </td>
                 <td>
-                    <a href=""><i class="fa fa-minus-square-o text-danger"></i></a>
+                    <a href="#" onclick="location.href = '@Url.Action("RemoveFromCart",new { title = item.Title })'"><i class="fa fa-minus-square-o text-danger"></i></a>
                     @item.CopyAmount
-                    <a href=""><i class="fa fa-plus-square-o text-success"></i></a>
+                    <a href="#" onclick="location.href = '@Url.Action("AddToCart",new { title = item.Title })'"><i class="fa fa-plus-square-o text-success"></i></a>
                 </td>
                 <td>
                     @item.TotalPriceOfMovie

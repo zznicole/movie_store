@@ -77,6 +77,16 @@ namespace movie_store.Data_modify_method
         _db.SaveChanges();
       }
     }
+    
+    //Get movie by title
+    public static Movie GetMovieByTitle(string title)
+        {
+            using(var _db= new ApplicationDbContext())
+            {
+                Movie foundMovie = _db.Movies.Where(m => m.Title == title).FirstOrDefault();
+                return foundMovie;
+            }
+        }
 
     //View most popular movies in order
     //public static List<Movie> GetMoviesOrderbyPopularity()
