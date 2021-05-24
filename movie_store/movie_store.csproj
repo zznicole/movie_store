@@ -199,6 +199,8 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="ViewModels\CartItemViewModels.cs" />
+    <Compile Include="ViewModels\CartListViewModel.cs" />
+    <Compile Include="ViewModels\CartMovieViewModel.cs" />
     <Compile Include="ViewModels\CustomersViewModels.cs" />
     <Compile Include="Models\DB\Customer.cs" />
     <Compile Include="Models\DB\ICustomer.cs" />
@@ -390,10 +392,10 @@
     <Content Include="Views\Movies\Index.cshtml" />
     <Content Include="Views\Shared\_OrderPartial.cshtml" />
     <Content Include="Views\Orders\DisplayCart.cshtml" />
+    <Content Include="Views\Cart\DisplayCart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Cart\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

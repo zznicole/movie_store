@@ -57,7 +57,7 @@ namespace movie_store.Data_modify_method
       movy.ImdbRating = obj.ImdbRating;
     }
 
-    //METHODS FOR MOVIES-------------------------------------------------------------------------
+    //METHODS FOR MoviesController-------------------------------------------------------------------------
     //Get all movies
     public static List<Movie> GetMovies()
     {
@@ -152,7 +152,7 @@ namespace movie_store.Data_modify_method
         }
     }
 
-    //METHODS FOR CUSTOMERS-------------------------------------------------------------------------
+    //METHODS FOR CustomersController-------------------------------------------------------------------------
     //Get all customers
     public static List<Customer> GetCustomers()
         {
@@ -192,8 +192,6 @@ namespace movie_store.Data_modify_method
       }
     }
 
-
-
     //Click 
     //public static void SaveOrder(OrderRow newOrder)
     //{
@@ -211,5 +209,21 @@ namespace movie_store.Data_modify_method
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new ApplicationDbContext()));
             roleManager.Create(new IdentityRole("Admin"));
     }
+
+    //METHODS FOR CartController-------------------------------------------------------------------------
+    //Display orders
+    public static List<Movie> GetCartMovies(List<int> movieIdList)
+        {
+            using(var _db =new ApplicationDbContext())
+            {
+                List<Movie> cartMovies = new List<Movie>();
+                foreach(var item in movieIdList)
+                {
+                    cartMovies.Add(_db.Movies.Find(item));
+                }
+                return cartMovies;
+            }
+
+        }
     }
 }
