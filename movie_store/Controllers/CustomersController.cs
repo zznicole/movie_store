@@ -60,6 +60,10 @@ namespace movie_store.Controllers
             {
                 db.Customers.Add(customer);
                 db.SaveChanges();
+                if (Session["MovieList"] != null)
+                {
+                    return RedirectToAction("Create", "Order", new { custId = customer.Id });
+                }
                 return RedirectToAction("Index");
             }
 

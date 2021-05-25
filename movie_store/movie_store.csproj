@@ -182,6 +182,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MoviesController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Data_modify_method\Repo.cs" />
     <Compile Include="Global.asax.cs">
@@ -394,6 +395,7 @@
     <Content Include="Views\Orders\DisplayCart.cshtml" />
     <Content Include="Views\Cart\DisplayCart.cshtml" />
     <Content Include="Views\Cart\Checkout.cshtml" />
+    <Content Include="Views\Order\OrderConfirm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

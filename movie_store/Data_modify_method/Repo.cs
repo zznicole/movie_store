@@ -18,44 +18,44 @@ namespace movie_store.Data_modify_method
   {
     private ApplicationDbContext _db = new ApplicationDbContext();
     //Get json object from  api
-    public static String ApiGetJson(string url)
-    {
-      HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(url); // Create a request to get server info
-      try
-      {
-        WebResponse response = webRequest.GetResponse();
+    //public static String ApiGetJson(string url)
+    //{
+    //  HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(url); // Create a request to get server info
+    //  try
+    //  {
+    //    WebResponse response = webRequest.GetResponse();
 
-        using (Stream responseStream = response.GetResponseStream())
-        {
-          StreamReader reader = new StreamReader(responseStream, System.Text.Encoding.UTF8);
-          return reader.ReadToEnd();
-        }
+    //    using (Stream responseStream = response.GetResponseStream())
+    //    {
+    //      StreamReader reader = new StreamReader(responseStream, System.Text.Encoding.UTF8);
+    //      return reader.ReadToEnd();
+    //    }
 
-      }
-      catch (WebException ex)
-      {
-        WebResponse errorResponse = ex.Response;
-        using (Stream responseStream = errorResponse.GetResponseStream())
-        {
-          StreamReader reader = new StreamReader(responseStream, System.Text.Encoding.GetEncoding("utf-8"));
-          string errorText = reader.ReadToEnd();
-        }
-        throw;
-      }
-    }
-    //Deserialize json and pass into Movie
-    public static void GetMovieData(Movie movy)
-    {
-      ApiData obj = JsonConvert.DeserializeObject<ApiData>(ApiGetJson($"http://www.omdbapi.com/?t={movy.Title}&apikey=171b1b73"));
-      obj.ImgUrl = obj.ImgUrl.Replace("_SX300", "_SX600");
+    //  }
+    //  catch (WebException ex)
+    //  {
+    //    WebResponse errorResponse = ex.Response;
+    //    using (Stream responseStream = errorResponse.GetResponseStream())
+    //    {
+    //      StreamReader reader = new StreamReader(responseStream, System.Text.Encoding.GetEncoding("utf-8"));
+    //      string errorText = reader.ReadToEnd();
+    //    }
+    //    throw;
+    //  }
+    //}
+    ////Deserialize json and pass into Movie
+    //public static void GetMovieData(Movie movy)
+    //{
+    //  ApiData obj = JsonConvert.DeserializeObject<ApiData>(ApiGetJson($"http://www.omdbapi.com/?t={movy.Title}&apikey=171b1b73"));
+    //  obj.ImgUrl = obj.ImgUrl.Replace("_SX300", "_SX600");
 
-      movy.Title = obj.Title;
-      movy.Director = obj.Director;
-      movy.ReleaseYear = obj.ReleaseYear;
-      movy.ImgUrl = obj.ImgUrl;
-      movy.ImdbRated = obj.ImdbRated;
-      movy.ImdbRating = obj.ImdbRating;
-    }
+    //  movy.Title = obj.Title;
+    //  movy.Director = obj.Director;
+    //  movy.ReleaseYear = obj.ReleaseYear;
+    //  movy.ImgUrl = obj.ImgUrl;
+    //  movy.ImdbRated = obj.ImdbRated;
+    //  movy.ImdbRating = obj.ImdbRating;
+    //}
 
     //METHODS FOR MoviesController-------------------------------------------------------------------------
     //Get all movies
@@ -223,17 +223,40 @@ namespace movie_store.Data_modify_method
     //METHODS FOR CartController-------------------------------------------------------------------------
     //Display orders
     public static List<Movie> GetCartMovies(List<int> movieIdList)
+    {
+        using(var _db =new ApplicationDbContext())
         {
-            using(var _db =new ApplicationDbContext())
+            List<Movie> cartMovies = new List<Movie>();
+            foreach(var item in movieIdList)
             {
-                List<Movie> cartMovies = new List<Movie>();
-                foreach(var item in movieIdList)
-                {
-                    cartMovies.Add(_db.Movies.Find(item));
-                }
-                return cartMovies;
+                cartMovies.Add(_db.Movies.Find(item));
             }
-
+            return cartMovies;
         }
+
     }
+    //METHODS FOR OrderController-------------------------------------------------------------------------
+     public static void CreateOrder(List<int> movieIdList, int custId)
+    {
+        using (var _db = new ApplicationDbContext())
+        {
+            Order newOrder = new Order();
+            newOrder.OrderDate = DateTime.Now;
+            newOrder.Customer = _db.Customers.Find(custId);
+            foreach(var item in movieIdList)
+            {
+                Movie orderRowMovie = _db.Movies.Find(item);
+                newOrder.OrderRows.Add(new OrderRow()
+                {
+                    Movie = orderRowMovie,
+                    Price = orderRowMovie.Price,
+                    MovieId = orderRowMovie.Id,
+                });
+            }
+                _db.Orders.Add(newOrder);
+                _db.SaveChanges();
+            
+        }
+     }
+  }
 }

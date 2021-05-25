@@ -12,5 +12,11 @@ namespace movie_store.Models.DB
     public int CustomerId { get; set; }
     public virtual Customer Customer { get; set; }
     public virtual ICollection<OrderRow> OrderRows { get; set; }
+
+    //constructor
+    public Order()
+    {
+            OrderRows = new List<OrderRow>();
+    }
   }
 }

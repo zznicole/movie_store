@@ -43,7 +43,7 @@
         <td class="text-dark">
             ---
         </td>
-        <td >
+        <td>
             <strong> Shopping Cart Total:  @Model.TotalPriceInCart</strong>
         </td>
     </tr>
@@ -58,17 +58,38 @@
         <td class="text-dark">
             ---
         </td>
-        <td class="row">
+        @*<td class="row m-0">
+                <div class="col-md-6">
+                    <em class="mb-0"><small>New customer?</small></em>
+                    <div> @Html.ActionLink("Register and Order", "Register", "Order", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "btn btn-outline-warning text-light" })</div>
+                </div>
+                <div class="col-md-6">
+                    <em class="mb-0"><small>Already a customer?</small></em>
+                    <div> @Html.ActionLink("Confirm Order", "CheckEmail", "Order", null, htmlAttributes: new { @class = "btn btn-outline-warning text-light" }) </div>
+                </div>
+            </td>*@
+        <td class="row m-0">
             <div class="col-md-6">
+
                 <em class="mb-0"><small>New customer?</small></em>
-                <div> @Html.ActionLink("Register and Order", "Register", "Order", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "btn btn-outline-warning text-light" })</div>
+                <div> @Html.ActionLink("Register and Order", "Create", "Customers", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "btn btn-outline-warning text-light" })</div>
             </div>
             <div class="col-md-6">
-                <em class="mb-0"><small>Already a customer?</small></em>
-                <div> @Html.ActionLink("Confirm Order", "CheckEmail", "Order", null, htmlAttributes: new { @class = "btn btn-outline-warning text-light" }) </div>
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                <div><em class="mb-0"><small>Already a customer?</small></em></div>
+                <div><em class="mb-0"><small>Enter your registered email.</small></em></div>
+                
+                    @Html.EditorFor(e => e.Email, new { htmlattributes = new { @class = "form-control bg-dark border-bottom border-light " } })
+                    <input type="submit" value="login to proceed your order" class="btn btn-outline-warning text-light mt-md-1" />
+                }
             </div>
         </td>
     </tr>
-   
-   
+
+
 </table>
+
+
+ @*style="background-color:inherit; border: none; border-bottom: 1px solid #6c757d; color: #fff;"*@
