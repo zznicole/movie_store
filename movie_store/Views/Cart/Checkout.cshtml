@@ -1,0 +1,74 @@
+﻿@model movie_store.ViewModels.CartListViewModel
+@{
+    ViewBag.Title = "Checkout";
+}
+
+
+
+
+<h2 class="text-md-center mb-md-3">Confirm Your Orders</h2>
+<table class="table offset-md-0 offset-lg-2 col-md-12 col-lg-8 text-light">
+    <tr>
+        <th>Title</th>
+        <th>Price</th>
+        <th>No of Copies</th>
+        <th>Sub Total</th>
+    </tr>
+    @foreach (var item in Model.CartMovies)
+    {
+        <tr>
+            <td>
+                @item.Title
+            </td>
+            <td>
+                @item.Price
+            </td>
+            <td>
+                <a href="#" onclick="location.href = '@Url.Action("RemoveFromCart",new { title = item.Title })'"><i class="fa fa-minus-square-o text-danger"></i></a>
+                @item.CopyAmount
+                <a href="#" onclick="location.href = '@Url.Action("AddToCart",new { title = item.Title })'"><i class="fa fa-plus-square-o text-success"></i></a>
+            </td>
+            <td>
+                @item.TotalPriceOfMovie
+            </td>
+        </tr>
+    }
+    <tr>
+        <td class="text-dark">
+            ---
+        </td>
+        <td class="text-dark">
+            ---
+        </td>
+        <td class="text-dark">
+            ---
+        </td>
+        <td >
+            <strong> Shopping Cart Total:  @Model.TotalPriceInCart</strong>
+        </td>
+    </tr>
+    <tr>
+
+        <td class="text-dark">
+            ---
+        </td>
+        <td class="text-dark">
+            ---
+        </td>
+        <td class="text-dark">
+            ---
+        </td>
+        <td class="row">
+            <div class="col-md-6">
+                <em class="mb-0"><small>New customer?</small></em>
+                <div> @Html.ActionLink("Register and Order", "Register", "Order", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "btn btn-outline-warning text-light" })</div>
+            </div>
+            <div class="col-md-6">
+                <em class="mb-0"><small>Already a customer?</small></em>
+                <div> @Html.ActionLink("Confirm Order", "CheckEmail", "Order", null, htmlAttributes: new { @class = "btn btn-outline-warning text-light" }) </div>
+            </div>
+        </td>
+    </tr>
+   
+   
+</table>

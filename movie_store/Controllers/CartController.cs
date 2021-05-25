@@ -56,6 +56,20 @@ namespace movie_store.Controllers
             return RedirectToAction("Index","Movies");
         }
 
+        public ActionResult Checkout()
+        {
+            if(Session["MovieList"] != null)
+            {
+                List<int> movieIdList = (List<int>)Session["MovieList"];
+                List<Movie> movieList = GetCartMovies(movieIdList);
+                CartListViewModel displayedCart = new CartListViewModel();
+
+                return View(ArrangeCart(movieList, displayedCart));
+            }
+            return RedirectToAction("Index", "Movies");
+
+        }
+
         private object ArrangeCart(List<Movie> movieList, CartListViewModel displayedCart)
         {
             bool foundMovie = false;

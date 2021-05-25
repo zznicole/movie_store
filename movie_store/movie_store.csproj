@@ -393,6 +393,7 @@
     <Content Include="Views\Shared\_OrderPartial.cshtml" />
     <Content Include="Views\Orders\DisplayCart.cshtml" />
     <Content Include="Views\Cart\DisplayCart.cshtml" />
+    <Content Include="Views\Cart\Checkout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

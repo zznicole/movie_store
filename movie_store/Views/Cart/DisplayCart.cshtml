@@ -31,12 +31,13 @@
             </tr>
         }
 <tr>
-    <td>
-        ---
-    <td>
+    <td class="text-dark">
         ---
     </td>
-    <td>
+    <td class="text-dark">
+        ---
+    </td>
+    <td class="text-dark">
         ---
     </td>
     <td>
@@ -44,11 +45,17 @@
     </td>
 </tr>
 <tr>
+    <td class="text-dark">
+        ---
+    </td>
     <td>
         @Html.ActionLink("Continue Shopping", "Index", "Movies", null, htmlAttributes: new { @class = "btn btn-outline-warning text-light mt-md-3" })
     </td>
     <td>
-        @Html.ActionLink("Check Out", "Index", "Movies", null, htmlAttributes: new { @class = "btn btn-outline-success text-light mt-md-3" })
+        @Html.ActionLink("Check Out", "CheckOut", "Cart", null, htmlAttributes: new { @class = "btn btn-outline-success text-light mt-md-3" })
+    </td>
+    <td class="text-dark">
+        ---
     </td>
 </tr>
 </table>
