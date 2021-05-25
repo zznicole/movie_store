@@ -30,14 +30,25 @@
                 </td>
             </tr>
         }
-        <tr>
-            <td>
-                Shopping Cart Total: @Model.TotalPriceInCart
-            </td>
-        </tr>
-        <tr>
-            <td>
-                @Html.ActionLink("Continue Shopping","Index","Movies",null, htmlAttributes: new {@class="btn btn-outline-warning text-light mt-md-3"})
-            </td>
-        </tr>
+<tr>
+    <td>
+        ---
+    <td>
+        ---
+    </td>
+    <td>
+        ---
+    </td>
+    <td>
+        <strong> Shopping Cart Total:  @Model.TotalPriceInCart</strong>
+    </td>
+</tr>
+<tr>
+    <td>
+        @Html.ActionLink("Continue Shopping", "Index", "Movies", null, htmlAttributes: new { @class = "btn btn-outline-warning text-light mt-md-3" })
+    </td>
+    <td>
+        @Html.ActionLink("Check Out", "Index", "Movies", null, htmlAttributes: new { @class = "btn btn-outline-success text-light mt-md-3" })
+    </td>
+</tr>
 </table>
