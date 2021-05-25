@@ -70,6 +70,13 @@ namespace movie_store.Controllers
 
         }
 
+        [HttpPost]
+        public ActionResult Checkout(CartListViewModel vwEmail)
+        {
+            return RedirectToAction("Index", "Movies");
+
+        }
+
         private object ArrangeCart(List<Movie> movieList, CartListViewModel displayedCart)
         {
             bool foundMovie = false;

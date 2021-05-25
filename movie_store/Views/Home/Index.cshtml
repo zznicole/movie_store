@@ -1,33 +1,148 @@
 ﻿
+@model movie_store.ViewModels.HomeViewModel
 @{
     ViewBag.Title = "Home Page";
 }
+<hr />
+<div>
+    <h3 mL-md-3>Five Newest Movies</h3>
+    <div class="row mx-0">
 
-<div class="jumbotron bg-dark">
-    <h1 class="text-light">Welcome to Nic's Movie Store</h1>
-    <p class="lead text-light">Let's find and collect your favorite movies!</p>
+        @foreach (var item in Model.fiveNewestMovies)
+        {
+            <div class="card mb-md-2 mx-md-3" style="width: 18rem; background-color:#222222;">
+                <img class="card-img-top" style="height:28rem;" src="@Url.Content(item.ImgUrl)" alt="image" />
+                <div class="card-body d-flex flex-column text-light">
+                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.Title)</h5>
+                    @*<h6 class="card-text">@Html.DisplayFor(modelItem => item.Plot)</h6>*@
 
-    @*<p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>*@
+                    <p class="card-text">Director: @Html.DisplayFor(modelItem => item.Director)</p>
+                    <p class="card-text">@Html.DisplayFor(modelItem => item.ReleaseYear)</p>
+                    <h6 class="card-text">Price : @Html.DisplayFor(modelItem => item.Price)</h6>
+                    <a type="button" href="~/Cart/AddToCart/?movieId=@item.Id" class="align-self-end btn btn-md btn-block"
+                       style="margin-top: auto;
+                        background-image: linear-gradient(to right, #e96443, #904e95);
+                        margin: 10px;
+                        text-align: center;
+                        text-transform: uppercase;
+                        transition: 0.5s;
+                        color: white;
+                        border-radius: 30px;
+                        display: block;
+
+                        ">
+                        <i class="fa fa-shopping-cart" style="margin-right:8px"></i>
+                        Buy Now
+                    </a>
+
+                </div>
+                @if (User.IsInRole("Admin"))
+                {
+                    <div class="card-body">
+
+                        @Html.ActionLink("Edit", "Edit", null, new { id = item.Id, @class = "btn btn-outline-danger" })
+                        @Html.ActionLink("Details", "Details", null, new { id = item.Id, @class = "btn btn-outline-danger mx-2" })
+                        @Html.ActionLink("Delete", "Delete", null, new { id = item.Id, @class = "btn btn-outline-danger" })
+
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</div>
+<hr />
+<div>
+    <h3 mL-md-3>Five Oldest Movies</h3>
+    <div class="row mx-0">
+
+        @foreach (var item in Model.fiveOldestMovies)
+        {
+            <div class="card mb-md-2 mx-md-3" style="width: 18rem; background-color:#222222;">
+                <img class="card-img-top" style="height:28rem;" src="@Url.Content(item.ImgUrl)" alt="image" />
+                <div class="card-body d-flex flex-column text-light">
+                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.Title)</h5>
+                    @*<h6 class="card-text">@Html.DisplayFor(modelItem => item.Plot)</h6>*@
+
+                    <p class="card-text">Director: @Html.DisplayFor(modelItem => item.Director)</p>
+                    <p class="card-text">@Html.DisplayFor(modelItem => item.ReleaseYear)</p>
+                    <h6 class="card-text">Price : @Html.DisplayFor(modelItem => item.Price)</h6>
+                    <a type="button" href="~/Cart/AddToCart/?movieId=@item.Id" class="align-self-end btn btn-md btn-block"
+                       style="margin-top: auto;
+                        background-image: linear-gradient(to right, #e96443, #904e95);
+                        margin: 10px;
+                        text-align: center;
+                        text-transform: uppercase;
+                        transition: 0.5s;
+                        color: white;
+                        border-radius: 30px;
+                        display: block;
+
+                        ">
+                        <i class="fa fa-shopping-cart" style="margin-right:8px"></i>
+                        Buy Now
+                    </a>
+
+                </div>
+                @if (User.IsInRole("Admin"))
+                {
+                    <div class="card-body">
+
+                        @Html.ActionLink("Edit", "Edit", null, new { id = item.Id, @class = "btn btn-outline-danger" })
+                        @Html.ActionLink("Details", "Details", null, new { id = item.Id, @class = "btn btn-outline-danger mx-2" })
+                        @Html.ActionLink("Delete", "Delete", null, new { id = item.Id, @class = "btn btn-outline-danger" })
+
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</div>
+<hr />
+<div>
+    <h3 mL-md-3>Five Cheapest Movies</h3>
+    <div class="row mx-0">
+
+        @foreach (var item in Model.fiveCheapestMovies)
+        {
+            <div class="card mb-md-2 mx-md-3" style="width: 18rem; background-color:#222222;">
+                <img class="card-img-top" style="height:28rem;" src="@Url.Content(item.ImgUrl)" alt="image" />
+                <div class="card-body d-flex flex-column text-light">
+                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.Title)</h5>
+                    @*<h6 class="card-text">@Html.DisplayFor(modelItem => item.Plot)</h6>*@
+
+                    <p class="card-text">Director: @Html.DisplayFor(modelItem => item.Director)</p>
+                    <p class="card-text">@Html.DisplayFor(modelItem => item.ReleaseYear)</p>
+                    <h6 class="card-text">Price : @Html.DisplayFor(modelItem => item.Price)</h6>
+                    <a type="button" href="~/Cart/AddToCart/?movieId=@item.Id" class="align-self-end btn btn-md btn-block"
+                       style="margin-top: auto;
+                        background-image: linear-gradient(to right, #e96443, #904e95);
+                        margin: 10px;
+                        text-align: center;
+                        text-transform: uppercase;
+                        transition: 0.5s;
+                        color: white;
+                        border-radius: 30px;
+                        display: block;
+
+                        ">
+                        <i class="fa fa-shopping-cart" style="margin-right:8px"></i>
+                        Buy Now
+                    </a>
+
+                </div>
+                @if (User.IsInRole("Admin"))
+                {
+                    <div class="card-body">
+
+                        @Html.ActionLink("Edit", "Edit", null, new { id = item.Id, @class = "btn btn-outline-danger" })
+                        @Html.ActionLink("Details", "Details", null, new { id = item.Id, @class = "btn btn-outline-danger mx-2" })
+                        @Html.ActionLink("Delete", "Delete", null, new { id = item.Id, @class = "btn btn-outline-danger" })
+
+                    </div>
+                }
+            </div>
+        }
+    </div>
 </div>
 
-@*<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
-</div>*@
+

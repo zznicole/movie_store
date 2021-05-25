@@ -189,6 +189,11 @@ namespace movie_store.Data_modify_method
       using(var _db = new ApplicationDbContext())
       {
         bool emailExists = _db.Customers.Any(c => c.Email == customer.Email);
+        var cust = _db.Customers.Where(c => c.Email == customer.Email).FirstOrDefault();
+        //if(emailExists && _db.Customers.Find(customer.Id) == cust)
+        //{
+        //            emailExists = false;     
+        //}
         return emailExists;
       }
     }

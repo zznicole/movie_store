@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using movie_store.Models;
 using movie_store.Models.DB;
+using movie_store.ViewModels;
+using static movie_store.Data_modify_method.Repo;
 
 namespace movie_store.Controllers
 {
@@ -12,7 +15,13 @@ namespace movie_store.Controllers
     
     public ActionResult Index()
     {
-      return View();
+        HomeViewModel homeVW= new HomeViewModel();
+            //homeVW.fiveMostPopularMovies = GetFiveMostPopularMovies();
+        homeVW.fiveNewestMovies = GetFiveNewestMovies();
+        homeVW.fiveOldestMovies = GetFiveOldestMovies();
+        homeVW.fiveCheapestMovies = GetFiveCheapestMovies();
+            
+      return View(homeVW);
     }
 
     public ActionResult About()
