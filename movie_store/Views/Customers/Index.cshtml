@@ -26,7 +26,7 @@
         <th>
             @Html.DisplayNameFor(model => model.PhoneNo)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.BillingAddress)
         </th>
         <th>
@@ -50,57 +50,58 @@
         <th>
             @Html.DisplayNameFor(model => model.DeliverCountry)
         </th>
-        <th></th>
+        <th></th>*@
     </tr>
 
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PhoneNo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BillingAddress)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BillingZipCode)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BillingCity)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BillingCountry)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DeliveryAddress)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DeliveryZipCode)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DeliveryCity)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DeliverCountry)
-            </td>
-            <td>
-                @if (User.IsInRole("Admin"))
-                {
-                    @Html.ActionLink("Edit", "Edit", null, new { id = item.Id, @class = "btn btn-outline-danger" }) ;
-                    @Html.ActionLink("Details", "Details", null, new { id = item.Id, @class = "btn btn-outline-danger mx-2" }) ;
-                    @Html.ActionLink("Delete", "Delete", null, new { id = item.Id, @class = "btn btn-outline-danger" })
-                }
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.FirstName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.LastName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Email)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.PhoneNo)
+    </td>
+    @*<td>
+            @Html.DisplayFor(modelItem => item.BillingAddress)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BillingZipCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BillingCity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BillingCountry)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DeliveryAddress)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DeliveryZipCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DeliveryCity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DeliverCountry)
+        </td>*@
+    <td>
+        @if (User.IsInRole("Admin"))
 
-        </tr>
+        {
+            @Html.ActionLink("Display Orders", "DisplayOrders", null, new { custId = item.Id }, new {@class = "btn btn-outline-success" }) ;
+            @Html.ActionLink("Edit", "Edit", null, new { id = item.Id }, new { @class = "btn btn-outline-danger" }) ;
+            @Html.ActionLink("Details", "Details", null, new { id = item.Id }, new { @class = "btn btn-outline-danger mx-2" }) ;
+        }
+    </td>
+</tr>
     }
 
 </table>

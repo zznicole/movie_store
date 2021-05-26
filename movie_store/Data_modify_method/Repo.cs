@@ -9,6 +9,7 @@ using movie_store.Models.DB;
 using movie_store.Migrations;
 using Newtonsoft.Json;
 using System.Web.Providers.Entities;
+using System.Data.Entity;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
@@ -94,7 +95,8 @@ namespace movie_store.Data_modify_method
         using (var _db = new ApplicationDbContext())
         {
           List<Movie> fiveMostPopular = _db.Movies.Take(5).ToList();
-          return fiveMostPopular;
+                //List<Movie> fiveMostPopular1 = _db.Movies.Include(m => m.OrderRows).Count(o=> Id ==o.Id).ToList();
+                return fiveMostPopular;
         }
     }
 
@@ -213,6 +215,17 @@ namespace movie_store.Data_modify_method
       {
         return _db.Customers.Find(custId);
       }
+    }
+
+    //Get a customer's orders
+    public static List<Order> GetOrders(int custId)
+    {
+        using(var _db = new ApplicationDbContext())
+        {
+          List<Order> orderList = _db.Orders.Include(o => o.OrderRows).Where(c => c.CustomerId == custId).ToList();
+          return orderList;
+        }
+
     }
 
     //Click 

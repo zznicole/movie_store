@@ -62,82 +62,82 @@ namespace movie_store.Controllers
         }
 
         //add a movie order to cart , might delete if this action is recreated in cartcontroller
-        //public ActionResult AddToCart(int id)
-        //{
-            
-        //    var cartItem = _db.Movies.FirstOrDefault(m => m.Id == id);
+        public ActionResult AddToCart(int id)
+        {
 
-        //    if (Session.IsNewSession && cartItems != null || Session["cart"] == null && cartItems != null)
-        //    {
-        //        cartItems.Add(cartItem);
-        //        Session["cart"] = cartItems;
-        //    }
-        //    else
-        //    {
-        //        cartItems = (List<Movie>)Session["cart"];
-        //        cartItems.Add(cartItem);
-        //        Session["cart"] = cartItems;
-        //    }
-           
-        //    return RedirectToAction("Index");
-        //}
+            var cartItem = _db.Movies.FirstOrDefault(m => m.Id == id);
+
+            if (Session.IsNewSession && cartItems != null || Session["cart"] == null && cartItems != null)
+            {
+                cartItems.Add(cartItem);
+                Session["cart"] = cartItems;
+            }
+            else
+            {
+                cartItems = (List<Movie>)Session["cart"];
+                cartItems.Add(cartItem);
+                Session["cart"] = cartItems;
+            }
+
+            return RedirectToAction("Index");
+        }
 
         //// GET: Movies/Edit/5
-        //public ActionResult Edit(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    Movie movie = db.Movies.Find(id);
-        //    if (movie == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(movie);
-        //}
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Movie movie = _db.Movies.Find(id);
+            if (movie == null)
+            {
+                return HttpNotFound();
+            }
+            return View(movie);
+        }
 
         // POST: Movies/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Edit([Bind(Include = "Id,Title,Director,ReleaseYear,Price,ImdbRating,ImdbId,ImdbRated,Plot,ImgUrl")] Movie movie)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.Entry(movie).State = EntityState.Modified;
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-        //    return View(movie);
-        //}
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "Id,Title,Director,ReleaseYear,Price,ImdbRating,ImdbId,ImdbRated,Plot,ImgUrl")] Movie movie)
+        {
+            if (ModelState.IsValid)
+            {
+                _db.Entry(movie).State = EntityState.Modified;
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(movie);
+        }
 
-        //// GET: Movies/Delete/5
-        //public ActionResult Delete(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    Movie movie = db.Movies.Find(id);
-        //    if (movie == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(movie);
-        //}
+        // GET: Movies/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Movie movie = _db.Movies.Find(id);
+            if (movie == null)
+            {
+                return HttpNotFound();
+            }
+            return View(movie);
+        }
 
-        //// POST: Movies/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult DeleteConfirmed(int id)
-        //{
-        //    Movie movie = db.Movies.Find(id);
-        //    db.Movies.Remove(movie);
-        //    db.SaveChanges();
-        //    return RedirectToAction("Index");
-        //}
+        // POST: Movies/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            Movie movie = _db.Movies.Find(id);
+            _db.Movies.Remove(movie);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
+        }
 
         //protected override void Dispose()
         //{

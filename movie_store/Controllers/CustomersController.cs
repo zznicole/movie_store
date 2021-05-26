@@ -70,6 +70,11 @@ namespace movie_store.Controllers
             return View(customer);
         }
 
+        // Display Customers Orders
+        public ActionResult DisplayOrders(int custId)
+        {
+            return View(GetOrders(custId));
+        }
         // GET: Customers/Edit/5
         public ActionResult Edit(int custId)
         {
@@ -127,13 +132,13 @@ namespace movie_store.Controllers
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+        //protected override void Dispose(bool disposing)
+        //{
+        //    if (disposing)
+        //    {
+        //        db.Dispose();
+        //    }
+        //    base.Dispose(disposing);
+        //}
     }
 }
