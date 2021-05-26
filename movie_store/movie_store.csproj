@@ -213,6 +213,7 @@
     <Compile Include="Models\DB\OrderRow.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="ViewModels\CustOrdersViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\MoviesViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
