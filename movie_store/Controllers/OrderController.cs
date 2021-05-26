@@ -22,8 +22,10 @@ namespace movie_store.Controllers
             if (movieIdList != null)
             {
                 CreateOrder(movieIdList, custId);
+                Session.Clear();
             }
             return RedirectToAction("OrderConfirm");
+            
         }
         public ActionResult OrderConfirm()
         {

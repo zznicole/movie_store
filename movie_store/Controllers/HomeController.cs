@@ -16,7 +16,7 @@ namespace movie_store.Controllers
     public ActionResult Index()
     {
         HomeViewModel homeVW= new HomeViewModel();
-            //homeVW.fiveMostPopularMovies = GetFiveMostPopularMovies();
+        homeVW.fiveMostPopularMovies = GetFiveMostPopularMovies();
         homeVW.fiveNewestMovies = GetFiveNewestMovies();
         homeVW.fiveOldestMovies = GetFiveOldestMovies();
         homeVW.fiveCheapestMovies = GetFiveCheapestMovies();

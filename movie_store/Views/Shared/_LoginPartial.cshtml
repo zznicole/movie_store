@@ -12,7 +12,7 @@
     }
 }
 
-@if (Request.IsAuthenticated) //the view after logged in
+@if (Request.IsAuthenticated) //if user logged in
 {
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" })) 
     {

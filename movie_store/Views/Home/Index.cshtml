@@ -3,9 +3,58 @@
 @{
     ViewBag.Title = "Home Page";
 }
-<hr />
+
 <div>
-    <h3 mL-md-3>Five Newest Movies</h3>
+    <h4 mL-md-4>Top Five Most Popular Movies</h4>
+    <hr />
+    <div class="row mx-0">
+
+        @foreach (var item in Model.fiveMostPopularMovies)
+        {
+            <div class="card mb-md-2 mx-md-3" style="width: 18rem; background-color:#222222;">
+                <img class="card-img-top" style="height:28rem;" src="@Url.Content(item.ImgUrl)" alt="image" />
+                <div class="card-body  text-light">
+                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.Title)</h5>
+                    @*<h6 class="card-text">@Html.DisplayFor(modelItem => item.Plot)</h6>*@
+
+                    <p class="card-text">Director: @Html.DisplayFor(modelItem => item.Director)</p>
+                    <p class="card-text">@Html.DisplayFor(modelItem => item.ReleaseYear)</p>
+                    <h6 class="card-text">Price : @Html.DisplayFor(modelItem => item.Price)</h6>
+                    <a type="button" href="~/Cart/AddToCart/?movieId=@item.Id" class="align-self-end btn btn-md btn-block"
+                       style="margin-top: auto;
+                        background-image: linear-gradient(to right, #e96443, #904e95);
+                        margin: 10px;
+                        text-align: center;
+                        text-transform: uppercase;
+                        transition: 0.5s;
+                        color: white;
+                        border-radius: 30px;
+                        display: block;
+
+                        ">
+                        <i class="fa fa-shopping-cart" style="margin-right:8px"></i>
+                        Buy Now
+                    </a>
+
+                </div>
+                @if (User.IsInRole("Admin"))
+                {
+                    <div class="card-body">
+
+                        @Html.ActionLink("Edit", "Edit", null, new { id = item.Id, @class = "btn btn-outline-danger" })
+                        @Html.ActionLink("Details", "Details", null, new { id = item.Id, @class = "btn btn-outline-danger mx-2" })
+                        @Html.ActionLink("Delete", "Delete", null, new { id = item.Id, @class = "btn btn-outline-danger" })
+
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</div>
+
+<div>
+    <h4 mL-md-4>Top Five Newest Movies</h4>
+    <hr />
     <div class="row mx-0">
 
         @foreach (var item in Model.fiveNewestMovies)
@@ -50,9 +99,10 @@
         }
     </div>
 </div>
-<hr />
+
 <div>
-    <h3 mL-md-3>Five Oldest Movies</h3>
+    <h4 mL-md-4>Top Five Oldest Movies</h4>
+    <hr />
     <div class="row mx-0">
 
         @foreach (var item in Model.fiveOldestMovies)
@@ -97,9 +147,10 @@
         }
     </div>
 </div>
-<hr />
+
 <div>
-    <h3 mL-md-3>Five Cheapest Movies</h3>
+    <h4 mL-md-4>Top Five Cheapest Movies</h4>
+    <hr />
     <div class="row mx-0">
 
         @foreach (var item in Model.fiveCheapestMovies)

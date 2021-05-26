@@ -88,26 +88,18 @@ namespace movie_store.Data_modify_method
             }
         }
 
-    //View most popular movies in order
-    //public static List<Movie> GetMoviesOrderbyPopularity()
-    //{
-    //  using(var _db = new ApplicationDbContext())
-    //  {
-    //    var query  = (from c in _db.Customers
-    //                  join o in _db.Orders on c.Id equals o.CustomerId
-    //                  join orw in _db.OrderRows on o.Id equals orw.OrderId
-    //                  join m in _db.Movies on orw.MovieId equals m.Id;
-    //                  where m.Title =" "                             
-    //                  select c).ToList();
-    //    var mostPopularMovies = from m in _db.Movies
-    //                            join orw in _db.OrderRows on m.Id equals orw.MovieId
-    //                            join o in _db.Order on orw.OrderId equals o.Id
-    //
-    //  }
-    //}
+    //Get five most popular movies in order ???
+    public static List<Movie> GetFiveMostPopularMovies()
+    {
+        using (var _db = new ApplicationDbContext())
+        {
+          List<Movie> fiveMostPopular = _db.Movies.Take(5).ToList();
+          return fiveMostPopular;
+        }
+    }
 
-    //Get top 5 newest movies
-    public static List<Movie> GetFiveNewestMovies()
+        //Get top five newest movies
+        public static List<Movie> GetFiveNewestMovies()
     {
       using (var _db = new ApplicationDbContext())
       {
@@ -116,7 +108,7 @@ namespace movie_store.Data_modify_method
       }
     }
 
-    //Get top 5 oldest movies
+    //Get top five oldest movies
     public static List<Movie> GetFiveOldestMovies()
     {
       using (var _db = new ApplicationDbContext())
@@ -126,7 +118,7 @@ namespace movie_store.Data_modify_method
       }
     }
 
-    //Get top 5 cheapest movies
+    //Get top five cheapest movies
     public static List<Movie> GetFiveCheapestMovies()
     {
       using (var _db = new ApplicationDbContext())
@@ -183,18 +175,34 @@ namespace movie_store.Data_modify_method
         }
     }
 
-    //Unique Email
+    //Check for if there is duplicate Email
     public static bool CheckDuplicateEmail(Customer customer)
     {
       using(var _db = new ApplicationDbContext())
       {
         bool emailExists = _db.Customers.Any(c => c.Email == customer.Email);
-        var cust = _db.Customers.Where(c => c.Email == customer.Email).FirstOrDefault();
+        //var cust = _db.Customers.Where(c => c.Email == customer.Email).FirstOrDefault();
         //if(emailExists && _db.Customers.Find(customer.Id) == cust)
         //{
         //            emailExists = false;     
         //}
         return emailExists;
+      }
+    }
+
+    //Check if a customer exists
+    public static int CheckCustExists(string email)
+    {
+      using(var _db = new ApplicationDbContext())
+      {
+         bool custExists = _db.Customers.Any(c => c.Email == email);
+                if (custExists)
+                {
+                    return _db.Customers.Where(c => c.Email == email).FirstOrDefault().Id;
+                }
+                else
+                    return 0;
+        
       }
     }
 

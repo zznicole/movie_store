@@ -71,10 +71,23 @@ namespace movie_store.Controllers
         }
 
         [HttpPost]
-        public ActionResult Checkout(CartListViewModel vwEmail)
+        public ActionResult Checkout(CartListViewModel vwCartList)
         {
-            return RedirectToAction("Index", "Movies");
+            int custIdExists = CheckCustExists(vwCartList.Email);
+            if(custIdExists == 0)
+            {
+                ViewBag.Message = "Email is not registered, Please try again.";
+                List<int> movieIdList = (List<int>)Session["MovieList"];
+                List<Movie> movieList = GetCartMovies(movieIdList);
+                CartListViewModel displayedCart = new CartListViewModel();
 
+                return View(ArrangeCart(movieList, displayedCart));
+            }
+            else
+            {
+                return RedirectToAction("Create", "Order", new { custId = custIdExists});
+            }
+            
         }
 
         private object ArrangeCart(List<Movie> movieList, CartListViewModel displayedCart)
