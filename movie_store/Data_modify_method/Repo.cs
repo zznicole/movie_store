@@ -94,9 +94,10 @@ namespace movie_store.Data_modify_method
     {
         using (var _db = new ApplicationDbContext())
         {
-          List<Movie> fiveMostPopular = _db.Movies.Take(5).ToList();
-                //List<Movie> fiveMostPopular1 = _db.Movies.Include(m => m.OrderRows).Count(o=> Id ==o.Id).ToList();
-                return fiveMostPopular;
+                List<Movie> fiveMostPopular = _db.Movies.Take(5).ToList();
+                List<Movie> fiveMostPopular1 = _db.OrderRows.GroupBy(m => m.MovieId).OrderByDescending(g => g.Count()).Take(5).Select(g=>g.FirstOrDefault().Movie).ToList();
+                
+                return fiveMostPopular1;
         }
     }
 
