@@ -89,20 +89,24 @@ namespace movie_store.Data_modify_method
             }
         }
 
-    //Get five most popular movies in order ???
+    //Get five most popular movies 
     public static List<Movie> GetFiveMostPopularMovies()
     {
         using (var _db = new ApplicationDbContext())
         {
-                List<Movie> fiveMostPopular = _db.Movies.Take(5).ToList();
-                List<Movie> fiveMostPopular1 = _db.OrderRows.GroupBy(m => m.MovieId).OrderByDescending(g => g.Count()).Take(5).Select(g=>g.FirstOrDefault().Movie).ToList();
                 
-                return fiveMostPopular1;
+            List<Movie> fiveMostPopular = _db.OrderRows.GroupBy(m => m.MovieId)
+                                                       .OrderByDescending(g => g.Count())
+                                                       .Take(5)
+                                                       .Select(g=>g.FirstOrDefault().Movie)
+                                                       .ToList();
+                
+                return fiveMostPopular;
         }
     }
 
-        //Get top five newest movies
-        public static List<Movie> GetFiveNewestMovies()
+    //Get top five newest movies
+    public static List<Movie> GetFiveNewestMovies()
     {
       using (var _db = new ApplicationDbContext())
       {
