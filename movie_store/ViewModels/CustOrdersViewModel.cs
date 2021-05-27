@@ -11,6 +11,8 @@ namespace movie_store.ViewModels
         public List<OrderViewModel> Orders { get; set; }
         public Customer Customer { get; set; }
 
+        public int NumberOfOrders { get; set; }
+
         public CustOrdersViewModel()
         {
             Orders = new List<OrderViewModel>();

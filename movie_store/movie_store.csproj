@@ -403,6 +403,7 @@
     <Content Include="Views\Cart\DisplayCart.cshtml" />
     <Content Include="Views\Cart\Checkout.cshtml" />
     <Content Include="Views\Order\OrderConfirm.cshtml" />
+    <Content Include="Views\Customers\DisplayOrders.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

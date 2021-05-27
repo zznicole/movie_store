@@ -225,9 +225,9 @@ namespace movie_store.Data_modify_method
     //Get a customer's orders
     public static List<Order> GetOrders(int custId)
     {
-        using(var _db = new ApplicationDbContext())
+            var _db2 = new ApplicationDbContext();
         {
-          List<Order> orderList = _db.Orders.Include(o => o.OrderRows).Where(c => c.CustomerId == custId).ToList();
+          List<Order> orderList = _db2.Orders.Include(o => o.OrderRows).Where(c => c.CustomerId == custId).ToList();
           return orderList;
         }
 

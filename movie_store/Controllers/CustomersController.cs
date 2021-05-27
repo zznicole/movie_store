@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using movie_store.Models;
 using movie_store.Models.DB;
+using movie_store.ViewModels;
 using static movie_store.Data_modify_method.Repo;
 
 namespace movie_store.Controllers
@@ -73,8 +74,36 @@ namespace movie_store.Controllers
         // Display Customers Orders
         public ActionResult DisplayOrders(int custId)
         {
-            return View(GetOrders(custId));
+            var orderList = GetOrders(custId);
+
+            return View(ArrangeOrders(orderList));
         }
+
+        private CustOrdersViewModel ArrangeOrders(List<Order> orderList)
+        {
+            CustOrdersViewModel custOrders = new CustOrdersViewModel();
+            custOrders.NumberOfOrders = orderList.Count();
+            custOrders.Customer = orderList.FirstOrDefault().Customer;
+            foreach (var item in orderList)
+            {
+                custOrders.Orders.Add(new OrderViewModel()
+                {
+                    Id = item.Id,
+                    OrderDate = item.OrderDate,
+                });
+                List<OrderRowViewModel> orderItems = item.OrderRows.GroupBy(r => r.MovieId)
+                                                                    .Select(ordr => new OrderRowViewModel()
+                                                                    {
+                                                                        Title = ordr.First().Movie.Title,
+                                                                        Price = ordr.First().Movie.Price,
+                                                                        SubTotal = ordr.Sum(r => r.Price),
+                                                                        Copies = ordr.Count()
+                                                                    }).ToList();
+                custOrders.Orders.Last().OrderItems = orderItems;
+            }
+            return custOrders;
+        }
+
         // GET: Customers/Edit/5
         public ActionResult Edit(int custId)
         {
