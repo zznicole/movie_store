@@ -23,6 +23,13 @@ namespace movie_store.Controllers
             return View(GetMovies());
         }
 
+        // Get: Movie by Title
+        public ActionResult SearchMovies(string searchString)
+        {
+            return View(GetSearchMoviesByTitle(searchString));
+        }
+
+
         // GET: Movies/Details/5
         public ActionResult Details(int? id)
         {

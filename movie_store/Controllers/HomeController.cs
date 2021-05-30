@@ -20,6 +20,7 @@ namespace movie_store.Controllers
         homeVW.fiveNewestMovies = GetFiveNewestMovies();
         homeVW.fiveOldestMovies = GetFiveOldestMovies();
         homeVW.fiveCheapestMovies = GetFiveCheapestMovies();
+        //homeVW.topCustomer = GetTopCustomer();
             
       return View(homeVW);
     }

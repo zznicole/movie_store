@@ -3,13 +3,13 @@
 @{
     ViewBag.Title = "Index";
 }
-
+<hr />
 <h1 class="text-md-center">All Movies</h1>
 
 @if (User.IsInRole("Admin"))
 {
-    @Html.ActionLink("Add a Movie", "Create", null, new { @class = "btn btn-outline-danger  ml-md-2 mb-3" }) ;
-   
+    @Html.ActionLink("Add a Movie", "Create", null, new { @class = "btn btn-outline-danger  ml-md-2 mb-3" });
+
 }
 <hr />
 @Html.Partial("_MovieDetailsPartial")

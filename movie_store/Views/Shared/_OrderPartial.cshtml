@@ -1,7 +1,68 @@
-﻿
+﻿@model movie_store.ViewModels.CustOrdersViewModel
+
 @{
     ViewBag.Title = "_OrderPartial";
 }
 
-<h2>_OrderPartial</h2>
+@foreach (var item in Model.Orders)
+{
+    <div class="row d-flex justify-content-center">
+        <div class=" col-md-3  badge-light">
+            <strong>
+                Order Date
+            </strong>
+        </div>
+        <div class=" col-md-3  badge-light">
+            <strong>
+                Order Id
+            </strong>
+        </div>
+    </div>
+    <div class="row d-flex justify-content-center mb-2">
+        <div class=" col-md-3 badge-light">
+            @item.OrderDate
+        </div>
+        <div class=" col-md-3 badge-light ">
+            @item.Id
+        </div>
+    </div>
+    <div class="row d-flex justify-content-center">
+        <div class="offset-md-1 col-md-4" style="background-color:#222222">
+            Movie Title
+        </div>
 
+        <div class="col-md-2 badge-info" style="background-color:#222222">
+            Price
+        </div>
+
+        <div class="col-md-1 badge-info" style="background-color:#222222">
+            Copies
+        </div>
+
+        <div class="col-md-3 badge-info" style="background-color:#222222">
+            Subtotal
+        </div>
+    </div>
+    foreach (var row in item.OrderItems)
+    {
+        <div class="row d-flex justify-content-center">
+            <div class="offset-md-1 col-md-4 badge-secondary">
+                @row.Title
+            </div>
+
+            <div class="col-md-2 badge-secondary">
+                @row.Price
+            </div>
+
+            <div class="col-md-1 badge-secondary">
+                @row.Copies
+            </div>
+
+            <div class="col-md-3 badge-secondary">
+                @row.SubTotal
+            </div>
+        </div>
+    }
+    <hr />
+    
+}

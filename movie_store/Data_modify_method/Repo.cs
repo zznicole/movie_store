@@ -18,49 +18,130 @@ namespace movie_store.Data_modify_method
   public class Repo
   {
     private ApplicationDbContext _db = new ApplicationDbContext();
-    //Get json object from  api
-    //public static String ApiGetJson(string url)
-    //{
-    //  HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(url); // Create a request to get server info
-    //  try
-    //  {
-    //    WebResponse response = webRequest.GetResponse();
+        //Get json object from  api
+        //public static String ApiGetJson(string url)
+        //{
+        //  HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(url); // Create a request to get server info
+        //  try
+        //  {
+        //    WebResponse response = webRequest.GetResponse();
 
-    //    using (Stream responseStream = response.GetResponseStream())
-    //    {
-    //      StreamReader reader = new StreamReader(responseStream, System.Text.Encoding.UTF8);
-    //      return reader.ReadToEnd();
-    //    }
+        //    using (Stream responseStream = response.GetResponseStream())
+        //    {
+        //      StreamReader reader = new StreamReader(responseStream, System.Text.Encoding.UTF8);
+        //      return reader.ReadToEnd();
+        //    }
 
-    //  }
-    //  catch (WebException ex)
-    //  {
-    //    WebResponse errorResponse = ex.Response;
-    //    using (Stream responseStream = errorResponse.GetResponseStream())
-    //    {
-    //      StreamReader reader = new StreamReader(responseStream, System.Text.Encoding.GetEncoding("utf-8"));
-    //      string errorText = reader.ReadToEnd();
-    //    }
-    //    throw;
-    //  }
-    //}
-    ////Deserialize json and pass into Movie
-    //public static void GetMovieData(Movie movy)
-    //{
-    //  ApiData obj = JsonConvert.DeserializeObject<ApiData>(ApiGetJson($"http://www.omdbapi.com/?t={movy.Title}&apikey=171b1b73"));
-    //  obj.ImgUrl = obj.ImgUrl.Replace("_SX300", "_SX600");
+        //  }
+        //  catch (WebException ex)
+        //  {
+        //    WebResponse errorResponse = ex.Response;
+        //    using (Stream responseStream = errorResponse.GetResponseStream())
+        //    {
+        //      StreamReader reader = new StreamReader(responseStream, System.Text.Encoding.GetEncoding("utf-8"));
+        //      string errorText = reader.ReadToEnd();
+        //    }
+        //    throw;
+        //  }
+        //}
+        ////Deserialize json and pass into Movie
+        //public static void GetMovieData(Movie movy)
+        //{
+        //  ApiData obj = JsonConvert.DeserializeObject<ApiData>(ApiGetJson($"http://www.omdbapi.com/?t={movy.Title}&apikey=171b1b73"));
+        //  obj.ImgUrl = obj.ImgUrl.Replace("_SX300", "_SX600");
 
-    //  movy.Title = obj.Title;
-    //  movy.Director = obj.Director;
-    //  movy.ReleaseYear = obj.ReleaseYear;
-    //  movy.ImgUrl = obj.ImgUrl;
-    //  movy.ImdbRated = obj.ImdbRated;
-    //  movy.ImdbRating = obj.ImdbRating;
-    //}
+        //  movy.Title = obj.Title;
+        //  movy.Director = obj.Director;
+        //  movy.ReleaseYear = obj.ReleaseYear;
+        //  movy.ImgUrl = obj.ImgUrl;
+        //  movy.ImdbRated = obj.ImdbRated;
+        //  movy.ImdbRating = obj.ImdbRating;
+        //}
 
-    //METHODS FOR MoviesController-------------------------------------------------------------------------
-    //Get all movies
-    public static List<Movie> GetMovies()
+        //METHODS FOR HomeController-------------------------------------------------------------------------
+        //Get five most popular movies 
+        public static List<Movie> GetFiveMostPopularMovies()
+        {
+            using (var _db = new ApplicationDbContext())
+            {
+
+                List<Movie> fiveMostPopular = _db.OrderRows.GroupBy(m => m.MovieId)
+                                                           .OrderByDescending(g => g.Count())
+                                                           .Take(5)
+                                                           .Select(g => g.FirstOrDefault().Movie)
+                                                           .ToList();
+
+                return fiveMostPopular;
+            }
+        }
+
+        //Get top five newest movies
+        public static List<Movie> GetFiveNewestMovies()
+        {
+            using (var _db = new ApplicationDbContext())
+            {
+                List<Movie> fiveNewest = _db.Movies.OrderByDescending(m => m.ReleaseYear).Take(5).ToList();
+                return fiveNewest;
+            }
+        }
+
+        //Get top five oldest movies
+        public static List<Movie> GetFiveOldestMovies()
+        {
+            using (var _db = new ApplicationDbContext())
+            {
+                List<Movie> fiveNewest = _db.Movies.OrderBy(m => m.ReleaseYear).Take(5).ToList();
+                return fiveNewest;
+            }
+        }
+
+        //Get top five cheapest movies
+        public static List<Movie> GetFiveCheapestMovies()
+        {
+            using (var _db = new ApplicationDbContext())
+            {
+                List<Movie> fiveCheapest = _db.Movies.OrderBy(m => m.Price).Take(5).ToList();
+                return fiveCheapest;
+            }
+        }
+
+        //Get the Customer who bought the most
+        //Select CustomerId, Sum(Price) as TotalSpent from
+        //OrderRows inner join
+        //Orders on OrderRows.OrderId = Orders.Id inner join
+        //Customers on Orders.CustomerId = Customers.Id
+        //group by CustomerId
+        //order by TotalSpent desc
+
+        //public static void GetTopCustomer()
+        //{
+        //    using (var _db = new ApplicationDbContext())
+        //    {
+        //        //var custs = _db.OrderRows.Include("Orders").GroupBy()
+
+
+        //        var topCustId = _db.Orders.Include(o => o.OrderRows).GroupBy(c=>c.CustomerId).));
+
+
+
+
+        //    }
+        //}
+
+
+        //METHODS FOR MoviesController-------------------------------------------------------------------------
+        //Get searched movies by title
+        public static List<Movie> GetSearchMoviesByTitle(string searchString)
+        {
+            using (var _db = new ApplicationDbContext())
+            {
+                List<Movie> foundMoviesByTitle = _db.Movies.Where(m => m.Title.Contains(searchString)).ToList();
+                return foundMoviesByTitle;
+            }
+        }
+
+        //Get all movies
+        public static List<Movie> GetMovies()
     {
       using(var _db = new ApplicationDbContext())
       {
@@ -89,51 +170,7 @@ namespace movie_store.Data_modify_method
             }
         }
 
-    //Get five most popular movies 
-    public static List<Movie> GetFiveMostPopularMovies()
-    {
-        using (var _db = new ApplicationDbContext())
-        {
-                
-            List<Movie> fiveMostPopular = _db.OrderRows.GroupBy(m => m.MovieId)
-                                                       .OrderByDescending(g => g.Count())
-                                                       .Take(5)
-                                                       .Select(g=>g.FirstOrDefault().Movie)
-                                                       .ToList();
-                
-                return fiveMostPopular;
-        }
-    }
-
-    //Get top five newest movies
-    public static List<Movie> GetFiveNewestMovies()
-    {
-      using (var _db = new ApplicationDbContext())
-      {
-        List<Movie> fiveNewest = _db.Movies.OrderByDescending(m => m.ReleaseYear).Take(5).ToList();
-        return fiveNewest;
-      }
-    }
-
-    //Get top five oldest movies
-    public static List<Movie> GetFiveOldestMovies()
-    {
-      using (var _db = new ApplicationDbContext())
-      {
-        List<Movie> fiveNewest = _db.Movies.OrderBy(m => m.ReleaseYear).Take(5).ToList();
-        return fiveNewest;
-      }
-    }
-
-    //Get top five cheapest movies
-    public static List<Movie> GetFiveCheapestMovies()
-    {
-      using (var _db = new ApplicationDbContext())
-      {
-        List<Movie> fiveCheapest = _db.Movies.OrderBy(m => m.Price).Take(5).ToList();
-        return fiveCheapest;
-      }
-    }
+    
 
     //Add moive to the cart
     public static void AddToCart(int id)

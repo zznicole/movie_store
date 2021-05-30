@@ -3,11 +3,11 @@
 @{
     ViewBag.Title = "Home Page";
 }
-
+<hr />
 <div>
-    <h5>Top Five Most Popular Movies</h5>
+    <h5 class="d-flex justify-content-center">Top Five Most Popular Movies</h5>
     <hr />
-    <div class="row mx-0">
+    <div class="row mx-0 d-flex justify-content-center">
 
         @foreach (var item in Model.fiveMostPopularMovies)
         {
@@ -53,9 +53,9 @@
 </div>
 
 <div>
-    <h5>Top Five Newest Movies</h5>
+    <h5 class="d-flex justify-content-center">Top Five Newest Movies</h5>
     <hr />
-    <div class="row mx-0">
+    <div class="row mx-0 d-flex justify-content-center">
 
         @foreach (var item in Model.fiveNewestMovies)
         {
@@ -101,9 +101,9 @@
 </div>
 
 <div>
-    <h5>Top Five Oldest Movies</h5>
+    <h5 class="d-flex justify-content-center">Top Five Oldest Movies</h5>
     <hr />
-    <div class="row mx-0">
+    <div class="row mx-0 d-flex justify-content-center">
 
         @foreach (var item in Model.fiveOldestMovies)
         {
@@ -149,9 +149,9 @@
 </div>
 
 <div>
-    <h5>Top Five Cheapest Movies</h5>
+    <h5 class="d-flex justify-content-center">Top Five Cheapest Movies</h5>
     <hr />
-    <div class="row mx-0">
+    <div class="row mx-0 d-flex justify-content-center">
 
         @foreach (var item in Model.fiveCheapestMovies)
         {
@@ -183,7 +183,7 @@
                 </div>
                 @if (User.IsInRole("Admin"))
                 {
-                    <div class="card-body">
+                    <div class="card-body justify-content-center">
 
                         @Html.ActionLink("Edit", "Edit", null, new { id = item.Id, @class = "btn btn-outline-danger" })
                         @Html.ActionLink("Details", "Details", null, new { id = item.Id, @class = "btn btn-outline-danger mx-2" })
@@ -195,5 +195,15 @@
         }
     </div>
 </div>
+<div>
+    <h5 class="d-flex justify-content-center">Our Top Customer</h5>
+    <hr />
+    @Model.topCustomer
+
+
+   
+</div>
+
+
 
 

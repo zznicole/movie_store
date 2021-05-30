@@ -12,6 +12,8 @@ namespace movie_store.ViewModels
         public IEnumerable<Movie> fiveNewestMovies { get; set; }
         public IEnumerable<Movie> fiveOldestMovies { get; set; }
         public IEnumerable<Movie> fiveCheapestMovies { get; set; }
+        
+        public Customer topCustomer { get; set;}
 
     }
 }
